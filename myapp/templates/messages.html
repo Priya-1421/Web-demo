@@ -1,0 +1,69 @@
+<style>
+  #messageOverlay {
+    z-index: 100 !important;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.9);
+    display: none;
+    justify-content: center;
+    align-items: center;
+  }
+
+  #messageBox {
+    z-index: 101 !important;
+    position: absolute;
+    width: 60%;
+    top: 20px;
+    left: 20%;
+    color: #3498db;
+    padding: 15px;
+    border-radius: 5px;
+  }
+
+  .messages {
+    list-style: none;
+    padding: 0;
+  }
+
+  .messages li {
+    font-size: 18px; /* Adjust the font size as needed */
+    margin-bottom: 10px;
+  }
+
+  .closeButton {
+    cursor: pointer;
+    color: #000;
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    font-size: 20px;
+  }
+</style>
+
+<div id="messageOverlay">
+  <div id="messageBox">
+    <ul class="messages">
+      {% for message in messages %}
+        <li class="alert {{ message.tags }}">
+          <span>{{ message }}</span>
+        </li>
+      {% endfor %}
+    </ul>
+    <span class="closeButton" onclick="closeMessageBox()">&times;</span>
+  </div>
+</div>
+
+<script>
+  // Show the message overlay when there are messages
+  {% if messages %}
+    document.getElementById('messageOverlay').style.display = 'flex';
+  {% endif %}
+
+  // Function to close the message box and overlay
+  function closeMessageBox() {
+    document.getElementById('messageOverlay').style.display = 'none';
+  }
+</script>
